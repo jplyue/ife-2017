@@ -140,35 +140,36 @@
 		<h2>侧栏注册窗口标题</h2>
 		<form action="">
 			<div>
-				<label for="">请输入邮箱地址：</label>
-				<input type="text" placeHolder="这是一个文本输入框">
+				<label for="email">请输入邮箱地址：</label>
+				<input id="email" type="text" placeHolder="这是一个文本输入框">
 				<p>邮箱地址请按照要求格式输入</p>
 			</div>
 			<div>
-				<label for="">请输入密码:</label>
-				<input type="text" placeHolder="这是一个文本输入框">
-				<label for="">请重复输入密码:</label>
-				<input type="text" placeHolder="这是一个文本输入框">
+				<label for="pwd1">请输入密码:</label>
+				<input id="pwd1" type="password" placeHolder="这是一个文本输入框">
+				<label for="pwd2">请重复输入密码:</label>
+				<input id="pwd2" type="password" placeHolder="这是一个文本输入框">
 				<p>密码请为6-16位英文数字</p>
 			</div>
 			<div>
 				<div>
-					<label for="">性别：</label>
-					<div class="checkboxes">
+					<label for="sex">性别：</label>
+					<div class="checkboxes" id="sex">
 						<input type="radio" name="sex" value="男">
 						<input type="radio" name="sex" value="女">
 					</div>
 				</div>
 				<div>
-					<label for="">城市：</label>
-					<select name="" id="">
-						<option value="">北京</option>
+					<label for="city">城市：</label>
+					<select name="" id="city">
+						<option value="0">北京</option>
+						<option value="1">上海</option>
 					</select>
 				</div>
 
 				<div>
-					<label for="">爱好：</label>
-					<div class="radios">
+					<label for="favoriate">爱好：</label>
+					<div class="radios" id="favoriate">
 						<input type="checkbox" name="favoriate" value="运动">
 						<input type="checkbox" name="favoriate" value="艺术">
 						<input type="checkbox" name="favoriate" value="科学">
@@ -176,8 +177,8 @@
 				</div>
 
 				<div>
-					<label for="">个人描述:</label>
-					<textarea name="" id="" cols="30" rows="10">这是一个多行输入框，输入您的个人描述</textarea>
+					<label for="description">个人描述:</label>
+					<textarea name="" id="description" cols="30" rows="10">这是一个多行输入框，输入您的个人描述</textarea>
 				</div>
 
 				<button type="submit">确认提交</button>

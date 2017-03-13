@@ -1,0 +1,43 @@
+*{ margin: 0; padding: 0; }
+body{ background-color: #333; }
+.container{ width: 1080px; margin: 0 auto;}
+ul, ol{ padding-left: 2em; }
+.m-t-10{ margin-top: 10px; }
+button{ background-color: transparent; border: none; outline: none; }
+
+nav#main { height: 60px; line-height: 60px; overflow: hidden; _height: 1%; background-color: #fff; }
+nav#main #logo{ float: left;}
+nav#main ul{ float: right; width: 36%; height: 100%; list-style: none; }
+nav#main ul li{ float: left; margin-right: 10px; }
+nav#main ul li a{ text-decoration: none; }
+
+#content{ padding: 20px; background-color: #ccc; }
+#content > article, aside{  margin-bottom: 20px; padding: 20px; background-color: #fff; box-shadow: 2px 1px 2px #999;}
+#content h2{ margin: 20px 0; font-size: 20px; color: #333; }
+#content h3{ margin: 10px 0; font-size: 16px; color: #999;}
+#content .author{ margin: 10px 0; font-size: 12px; color: #999; text-indent: 0;}
+#content p{ text-indent: 2em; line-height: 2; font-size: 14px; }
+#content figure, #content img{ margin: 10px 0;}
+
+.list1 { list-style: none; padding-left: 1em; }
+.figureList figure{ margin-left: 2em; padding: 10px; width: 127px; border: 1px solid #ccc; text-align: center; }
+#content .figureList figure img{ max-width: 100%; margin-bottom: 0; }
+
+#rank{ line-height: 2; }
+
+#table table{ width: 100%; border: 1px solid #ccc; border-collapse: collapse;}
+#table table td{ border: 1px solid #ccc; padding: 3px 5px; }
+#table table thead{ background-color: #333; color: #fff;}
+#table table tfoot{ background-color: #ccc; color: #333; font-weight: bold; }
+
+
+aside>h2:first-child{ border-left: 4px solid #ccc; padding: 5px 10px; }
+
+.form-horizontal .input-group, .radio-group, .checkboxes, textarea{ display: inline-block; vertical-align: top; }
+.form-horizontal label{ display: inline-block; margin-right: 10px; margin-top: 4px; width: 36%; text-align: right; }
+form input, select, textarea, .form-horizontal .radio-group{ padding: 5px 3px; color: #333;}
+.form-horizontal .help{ margin: 10px 0; color: #999; font-size: 12px;}
+.form-horizontal .form-group{ margin-bottom: 10px;}
+.radio-group .radio, .checkboxes .checkbox{ display: inline-block; margin-right: 3px; }
+.form-horizontal textarea{ width: 60%; }
+.form-horizontal button{ width: 100%; padding: 8px 0; background-color: #3355d0; color: #fff; border-radius: 5px; }
