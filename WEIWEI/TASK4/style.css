@@ -1,0 +1,21 @@
+*{ margin: 0; padding: 0; }
+
+/* box1 fixed width and height*/
+.box1{ position: absolute; left: 50%; top: 50%; margin-left: -200px; margin-top: -100px; width: 400px; height: 200px; background-color: #ccc; z-index: 10; }
+.box1 .inner{ position: relative; width: 100%; height: 100%; }
+.sector{ position: absolute; width: 0; height: 0; z-index: 100; border-radius: 100%; border: 1px solid #fc0;border-width: 50px; }
+.sec1{ left: -50px; top: -50px; border-color: transparent transparent #fc0 transparent; transform: rotate(-45deg);}
+.sec2{ right: -50px; bottom: -50px; border-color: transparent transparent transparent #fc0; transform: rotate(45deg);}
+
+
+/* box2   unknown width height */
+.box2{ position: absolute; left: 50%; top: 50%; background-color: #ccc; transform: translate(-50%, -50%); z-index: 10; }
+.box2 .inner{ position: relative; left: 0; top: 0; width: 100%; height: 100%; }
+.box2 p{ margin: 20px; padding: 20px; }
+.box2 .sec1{ top: -70px; }
+
+.parent {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
