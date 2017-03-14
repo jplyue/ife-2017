@@ -1,0 +1,17 @@
+*{ margin: 0; padding: 0; }
+
+
+.container{ margin: 20px; padding: 20px; max-height: 446px; background-color: #eee; border: 1px solid #999; overflow: hidden; _height: 1%; }
+.container > * { background-color: #fff; border: 1px solid #999;}
+.left{ float: left; width: 160px; margin-right: 20px; padding: 20px; }
+.left > *{ display: inline-block; vertical-align: top; }
+.logo{ width: 80px; height: 80px; background-color: #eee; border: 1px solid #999; background: url(image.jpg) no-repeat 50% 50%;}
+
+
+.center{ margin-left: 220px; margin-right: 140px; padding: 20px; line-height: 2; }
+
+
+
+.right{ float: right; width: 80px; padding: 20px; }
+.right .logo{ margin-bottom: 15px; }
+.right .logo:last-child{ margin-bottom: 0; }
