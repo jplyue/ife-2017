@@ -1,23 +1,33 @@
 *{ margin: 0; padding: 0; }
-body{ background-color: #333; }
-.container{ width: 1080px; margin: 0 auto;}
+
+a{ text-decoration: none; }
+body{ background-color: #0e0e0e; }
+.container{ width: 80.5%; margin: 0 auto; }
 ul, ol{ padding-left: 2em; }
 .m-t-10{ margin-top: 10px; }
 button{ background-color: transparent; border: none; outline: none; }
 
-nav#main { height: 60px; line-height: 60px; overflow: hidden; _height: 1%; background-color: #fff; }
-nav#main #logo{ float: left;}
-nav#main ul{ float: right; width: 36%; height: 100%; list-style: none; }
-nav#main ul li{ float: left; margin-right: 10px; }
-nav#main ul li a{ text-decoration: none; }
 
-#content{ padding: 20px; background-color: #ccc; }
-#content > article, aside{  margin-bottom: 20px; padding: 20px; background-color: #fff; box-shadow: 2px 1px 2px #999;}
+#logo{ float: left; width: 180px; height: 60px; background: url(image.jpg) no-repeat 0 0; background-position: -272px -51px;}
+header#main{ width: 100%; height: 60px; line-height: 60px; background-color: #333; }
+header#main nav{ float: right; }
+header#main nav ul li a{ color: #fff; font-size: 14px; }
+header#main nav ul li{ display: inline-block; *display: inline; margin-right: 15px; }
+header#main::after{ content: ""; display: block; clear: both;}
+
+
+
+#content{ padding: 20px; background-color: #dedede; }
+#content article, aside{  margin-bottom: 20px; padding: 20px; background-color: #fff; box-shadow: 2px 1px 2px #999;}
 #content h2{ margin: 20px 0; font-size: 20px; color: #333; }
 #content h3{ margin: 10px 0; font-size: 16px; color: #999;}
 #content .author{ margin: 10px 0; font-size: 12px; color: #999; text-indent: 0;}
 #content p{ text-indent: 2em; line-height: 2; font-size: 14px; }
 #content figure, #content img{ margin: 10px 0;}
+
+#content>.left{ margin-right: 385px; }
+#content aside{ float: right; width: 325px; margin-left: 20px; }
+
 
 .list1 { list-style: none; padding-left: 1em; }
 .figureList figure{ margin-left: 2em; padding: 10px; width: 127px; border: 1px solid #ccc; text-align: center; }
@@ -39,5 +49,9 @@ form input, select, textarea, .form-horizontal .radio-group{ padding: 5px 3px; c
 .form-horizontal .help{ margin: 10px 0; color: #999; font-size: 12px;}
 .form-horizontal .form-group{ margin-bottom: 10px;}
 .radio-group .radio, .checkboxes .checkbox{ display: inline-block; margin-right: 3px; }
-.form-horizontal textarea{ width: 60%; }
+.form-horizontal textarea{ width: 56%; }
 .form-horizontal button{ width: 100%; padding: 8px 0; background-color: #3355d0; color: #fff; border-radius: 5px; }
+
+
+
+footer{ width: 100%; height: 6em; line-height: 6em; color: #fff; text-align: center; }
