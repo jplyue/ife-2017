@@ -1,0 +1,99 @@
+*{ margin: 0; padding: 0; }
+
+a{ text-decoration: none; }
+.container{ width: 892px; margin: 0 auto; }
+.m-t-10{ margin-top: 10px; }
+button{ background-color: transparent; border: none; outline: none; }
+.left{ float: left; }
+.right{ float: right; }
+.clearfix{ overflow: hidden; zoom: 1;}
+
+
+#main{ width: 100%; height: 61px; border-bottom: 2px solid #938e8c; line-height: 100px; font-family: "SimHei"; }
+#main #logo{ float: left; width: 110px; height: 61px; background-color: #d55d5c; font-size: 12px; color: #fff; text-indent: 5px; }
+#main #time{ float: right; font-size: 12px; color: #d45d5c;}
+#main{ overflow: hidden; zoom: 1; }
+
+
+
+#content{ padding-top: 33px; padding-bottom: 39px; }
+.row{ width: 100%; overflow: hidden; zoom: 1;}
+.banner{ position: relative; width: 641px; height: 301px; margin-right: 203px; }
+.banner .alpha{ position: absolute; top: 0; width: 191px; height: 100%; z-index: 10; opacity: .5; }
+.banner .alpha1{ left: 0; background-color: #418c58; }
+.banner .alpha2{ right: 0; background-color: #cc7680; }
+#para1{ width: 203px; border-top: 2px solid #cc8091; padding-top: 10px; }
+#para1 h3{ font-size: 17px; color: #000; font-family: "Microsoft YaHei"; line-height: .95; font-weight: normal; font-variant: small-caps; text-transform: capitalize; }
+#para1 h3 span{ display: inline-block; margin-bottom: 10px; border-bottom: 1px solid #000; }
+#para1 h3 span:first-letter{ font-size: 24px; }
+#para1 p{ font-size: 12px; color: #676767; font-family: "KaiTi"; line-height: 10px; }
+#para1 h4{ margin-left: -33px; font-size: 116px; color: #75b86b; font-family: "Microsoft YaHei";}
+#para1 .num{ position: relative; width: 100%; height: 55px; line-height: 55px; overflow: hidden; zoom: 1;}
+#para1 .num > span{ font-family: "Microsoft YaHei"; display: inline-block; vertical-align: top; }
+#para1 .num > span:first-child{ font-size: 55px; color: #cc8091;}
+#para1 .num > span:nth-child(2){ float: right; position: absolute; bottom: 5px; right: 26px; }
+#para1 .num > span p:first-child{ margin-bottom: 5px; font-size: 21px; color: #cc8091;}
+#para1 .num > span p:nth-child(2){ font-size: 12px; color: #c1c0bf;}
+
+
+#row2{ margin-top: 41px; overflow: hidden; zoom: 1;}
+#row2 .col{ float: left; margin-right: 27px; }
+#row2 .col:first-child{ width: 227px; }
+#row2 .col:nth-child(2){ width: 205px; }
+#row2 .col:nth-child(3){ width: 131px; }
+#row2 h3{ text-decoration: underline; font-size: 16px; line-height: 28px; }
+#row2 .col:first-child h3{ color: #418c59;}
+#row2 .col:nth-child(2) h3{ color: #d2994f;}
+#row2 .col:nth-child(3) h3{ color: #cc7680;}
+#row2 .col p{ font-size: 12px; line-height: 16px; color: #767777; font-family: "SimSun"; }
+#row2 .col:nth-child(3) p, #row2 ul li{ line-height: 21px; }
+#row2 ul{ margin-top: 9px; list-style: none; font-size: 12px; font-family: "Microsoft YaHei";}
+#row2 ul li span{ color: #df9797; }
+
+
+
+#row3{ margin-top: 73px; }
+#row3 > .left{ width: 415px; }
+#row3 #title{ text-transform: uppercase; }
+#row3 #title h2{ color: #11456b; font-size: 42px; font-family: "SimHei"; line-height: 40px; }
+#row3 #title h2 em{ display: inline; color: #f5e327; font-size: 72px; line-height: 53px; }
+#row3 #title h3{ color: #11456b; font-size: 33px; }
+#row3 #title{ padding-bottom: 12px; border-bottom: 2px solid #11456b; margin-bottom: 25px; }
+#row3 > .left p{ text-indent: 2em; font-size: 12px; line-height: 16px; font-family: "SimSun";  }
+#row3 > .left p:first-of-type{ text-indent: 0;}
+#row3 > .left p:first-of-type:first-letter{ float: left; margin-right: 8px; color: #f5e327; font-size: 70px;line-height: 70px; font-family: "Microsoft YaHei";}
+#row3 > .left p img{ margin: 15px 0 15px 15px;}
+
+#row3 > .right{ width: 459px; }
+#row3 figure{ position: relative; width: 100%; height: 257px; }
+#row3 figure figcaption{ position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; line-height: 60px; background-color: rgba(0,0,0, .4); font-family: "Microsoft YaHei";}
+
+#row3 figcaption h3{ display: inline-block; vertical-align: middle; height: 44px; line-height: 44px; border-left: 3px solid #72b16a; margin-left: 38px; padding-left: 11px; color: #fff; font-size: 26px; font-weight: normal; }
+#row3 figcaption span{ display: inline-block; vertical-align: bottom; line-height: 44px; color: #72b16a; font-style: italic; }
+#row3 .bottom{ margin-top: 30px; background-color: #eeedd6; color: #5a5b5b; font-family: "SimSun";}
+/*#row3 .bottom dl{ overflow: hidden; zoom: 1;}
+#row3 .bottom dt{ display: inline; position: relative; width: auto;  padding-left: 20px; font-size: 16px; }
+#row3 .bottom dt::before{ content: ""; position: absolute; bottom: 3px; left: 0; border-width: 6px 6px 10px 6px; border-style: solid; border-color: transparent transparent #10456b transparent; width: 0; height: 0;}
+
+#row3 .bottom dd{ float: right; clear: right;}
+#row3 .bottom dd::after{ content: "\A"; white-space: pre; }*/
+#row3 .bottom ul { list-style: none; margin: 30px 0 0 47px; padding-top: 22px; }
+#row3 .bottom ul li{ position: relative; line-height: 40px; font-size: 16px; font-family: "SimSun"; }
+#row3 .bottom ul li::before{  content: ""; position: absolute; bottom: 13px; left: -17px; border-width: 4px 4px 8px 4px; border-style: solid; border-color: transparent transparent #10456b transparent; width: 0; height: 0;}
+#row3 .bottom ul li span{ font-size: 14px; font-style: italic; }
+#bottom{ margin-top: 15px; }
+#bottom > .left{ width: 260px; height: 82px; padding: 39px 0; background-color: #d45d5c; color: #fff; }
+#bottom .zero{ line-height: 82px; font-size: 110px; font-family:"Microsoft YaHei"; }
+#bottom .left > .left{ margin-left: 7px; }
+#bottom .left > .right{ width: 172px; height: 100%; padding-left: 8px; border-left: 2px solid #fff; font-family: "SimHei"; }
+#bottom .left > .right p:first-of-type{ font-size: 21px; line-height: 24px; font-style: italic; }
+#bottom .left > .right p:nth-of-type(2){ font-size: 12px; line-height: 12px; margin-top: 5px; }
+#bottom > .right{ width: 162px; margin-right: 22px; }
+#bottom > .right p{ font-family: "SimHei"; font-size: 14px; line-height: 16px; }
+#bottom > .right p::before, #bottom > .right p::after{ display: inline-block; width: 26px; height: 22px; }
+#bottom > .right p::before{ content: ""; margin-right: 16px; background: url(image/comma1.png) no-repeat 0 center; }
+#bottom > .right p::after{ float: right; content: ""; margin-top: 2px; background: url(image/comma2.png) no-repeat 0 center; }
+
+
+footer{ width: 100%; height: 57px; border-top: 1px solid #938e8c; }
+footer p{ font-family: "SimHei"; font-size: 12px; color: #d45d5c;}
