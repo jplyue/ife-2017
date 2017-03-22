@@ -85,7 +85,7 @@ aside nav li ul ul{ padding-left: 30px; }
 #content .wrapper > .box:first-child{ padding: 15px 0 13px 0; margin-bottom: 10px; }
 #top_form{ font-size: 12px; }
 #top_form, .group, .form-group, #top_form .select{ overflow: hidden; zoom: 1;  }
-#top_form .form-group{ float: left; margin-left: 5%; }
+#top_form .form-group{ float: left; margin-left: 35px; }
 #top_form label, #top_form .select { float: left; }
 #top_form .select, #top_form input{ height: 23px; line-height: 23px; padding: 0 10px; color: #323333; border: 1px solid #c3c4c4; }
 #top_form .select::after{ content: ""; float: right; margin-top: 7px; width: 17px; height: 13px; background: url(img/arrow_down_blue.png) no-repeat 50% 50%; }
@@ -128,8 +128,8 @@ aside nav li ul ul{ padding-left: 30px; }
 #row3 ul li:nth-child(4){ border-left-color: #e2cd47; margin-right: 0; }
 #row3 ul li .right{ width: 60px; height: 46px; background-color: #43b29e; }
 #row3 ul li:nth-child(2) .right{ background-color: #388ac1; }
-#row3 ul li:nth-child(2) .right{ background-color: #d04a36; }
-#row3 ul li:nth-child(2) .right{ background-color: #e2cd47; }
+#row3 ul li:nth-child(3) .right{ background-color: #d04a36; }
+#row3 ul li:nth-child(4) .right{ background-color: #e2cd47; }
 #row3 ul li p:first-child{ margin-top: 5px; margin-bottom: 8px; color: #323333;} 
 #row3 ul li p:nth-child(2){ color: #aaa;} 
 
