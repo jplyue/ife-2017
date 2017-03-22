@@ -1,6 +1,6 @@
 *{ margin: 0; padding: 0; font-family: "SimHei"; font-size: 12px; box-sizing: border-box;}
 
-body{ background-color: #2a2d3d; }
+body{ background-color: #2a2d3d; min-width: 1280px; overflow: auto; }
 a{ text-decoration: none; }
 .container{ min-width: 1280px; margin: 0 auto; overflow: auto; }
 .m-t-10{ margin-top: 10px; }
@@ -150,7 +150,7 @@ ul.tab li.active{ border-bottom-color: #fff; background-color: transparent; }
 .tab_content, ul.tab li, .table1, .table1 td{ border: 1px solid #cacbcb; }
 .tab_content{ margin-top: -1px; padding: 25px 48px 37px 36px; }
 .table1{ width: 100%; border-collapse: collapse; }
-.tab_content .table1 td{ padding: 8px 5%; text-align: center; }
+.tab_content .table1 td{ padding: 8px 0; text-align: center; }
 
 #form1 { font-family: "Microsoft YaHei"; font-size: 12px;  }
 #form1 label{ display: block; line-height: 2; color: #c3c2c2; }
@@ -169,13 +169,13 @@ ul.tab li.active{ border-bottom-color: #fff; background-color: transparent; }
 .select, .select span, .arrows{ display: inline-block; *display: inline; }
 .select{ position: relative; margin-right: 1.64%; border: 1px solid #dddfe1; overflow: hidden; zoom: 1; text-align: center; }
 .select:last-child{ margin-right: 0; }
-.select .tri{ float: right; border-left: 1px solid #f5f6f8; padding-left: 5px; }
+.select .tri{ float: right; border-left: 1px solid #f5f6f8; padding-left: 5px; padding-right: 5px; }
 .select .tri i{ display: inline-block; width: 0; height: 0; border: 3px solid transparent; border-top-color: #cbcbcb;}
-.select span{ margin: 3px 0 3px 3px; padding-right: 5px; }
-.arrows{ position: absolute; left: 7%; top: 0; width: 87.65%; overflow: hidden; zoom: 1; }
+.select span{ margin: 3px 0 3px 3px; }
+.arrows{ position: absolute; left: 2%; top: 0; width: 87.65%; overflow: hidden; zoom: 1; }
 .arrows::before{ float: left; content: "<"; color: #ececec;  }
 .arrows::after{ float: right; content: ">"; color: #ececec;  }
-.arrows + .tri{ margin-right: 18%; }
+.arrows + span + .tri{ margin-right: 12%; }
 .calendar header{ margin-bottom: 9px; font-size: 0;}
 .calendar header > *{ width: 23.77%; }
 .calendar table{ width: 100%; border-spacing: 0 2px; }
