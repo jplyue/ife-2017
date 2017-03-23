@@ -13,8 +13,8 @@ IE11+
 html
 ```
     <div class="parent">
-			<div class="child"></div>
-		</div>
+            <div class="child"></div>
+        </div>
 ```
 css
 ```
@@ -55,8 +55,8 @@ css
     */
     flex-flow: row wrap;
     /* Then we define how is distributed the remaining space
-	* 主轴的对齐方式。flex-start 左对齐，flex-end右对齐，center居中，space-between两端对齐，space-around平均分布
-	*/
+    * 主轴的对齐方式。flex-start 左对齐，flex-end右对齐，center居中，space-between两端对齐，space-around平均分布
+    */
     justify-content: space-around;
 }
 .flex-item {
@@ -95,3 +95,17 @@ flex-direction: row | row-reverse | column | column-reverse
 
 
 [Reference](https://segmentfault.com/a/1190000002910324#articleHeader5)
+
+
+# Media Query
+## 注意顺序问题（写在后面的属性会覆盖掉之前的属性）
+@media (min-width: 768px){ //>=768的设备 }
+@media (min-width: 992px){ //>=992的设备 }
+@media (min-width: 1200){ //>=1200的设备 }
+如果你把@media (min-width: 768px)写在了下面那么很悲剧，
+@media (min-width: 1200){ //>=1200的设备 }
+@media (min-width: 992px){ //>=992的设备 }
+@media (min-width: 768px){ //>=768的设备 }
+因为如果是1440,由于1440>768那么你的1200就会失效。
+
+max-width就要把大的写在最前面，小的在下面
