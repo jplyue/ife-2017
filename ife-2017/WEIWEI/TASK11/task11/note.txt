@@ -1,0 +1,454 @@
+#手机网页开发
+
+[w3cplus响应式技术资源][1]
+手机网页特点：
+
+1. 屏幕尺寸更小
+2. portrait和landscape两种浏览模式
+3. 新的用户交互方式：触屏、地理定位等
+
+采取的方案：响应式网页设计
+
+## 
+````
+<html lang="zh-cmn-Hans"> <!-- 更加标准的 lang 属性写法 http://zhi.hu/XyIa -->
+```
+
+## 1. 使用viewport meta标签指定网页在移动设备上的缩放比例
+    
+Reference [Viewport_meta_tag][2]
+
+而如果你的网站不是响应式的，请不要使用 initial-scale 或者禁用缩放。
+    
+```
+    <!-- width属性控制视口的宽度。可以像width=600这样设为确切的像素数，或者设为device-width这一特殊值来指代比例为100%时屏幕宽度的CSS像素数值。（相应有height及device-height属性，可能对包含基于视口高度调整大小及位置的元素的页面有用。）
+	
+	initial-scale属性控制页面最初加载时的缩放等级。maximum-scale、minimum-scale及user-scalable属性控制允许用户以怎样的方式放大或缩小页面。 -->
+	
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+```
+    
+> **为什么设计图的尺寸特别大**？
+    注意：移动设备的物理像素与css像素是不同的。在240 dpi及以上的屏幕上，initial-scale=1的页面实际上会被Fennec及Android WebKit浏览器放大至150%。其中的文字会保持平滑锐利，但位图图像在全屏模式下就难免不尽人意了。为了使图片在这些屏幕上变得清晰，web开发者或许会把图片甚至整个布局设计成最终尺寸的150%（或者200%从而支持像配备retina屏的iPhone那样的像素密度高达320 dpi及以上的设备），然后通过CSS或视口属性缩小。
+    
+    默认比例依赖于显示密度。
+    
+    - 密度 < 200 dpi, 比例为1.0
+    - 200 < 密度 < 300 dpi, 比例1.5
+    - 密度 > 300, 比例为 Math.floor(密度/150) 
+    
+    
+    在密度低于200 dpi的显示设备上，比例为1.0。在密度介于200及300 dpi之间的显示设备上，比例为1.5。对于具有300 dpi以上密度的显示设备，比例为密度/150 dpi向下取整的结果。
+    注意在视口比例为1时才会应用默认比例。否则，CSS像素与设备像素之间的关系依赖于当前的缩放等级。
+    
+    假如你使用`width=320, initial-scale=1`适配320宽度的屏幕，在横屏模式下，浏览器会自动拉伸页面来自适应，所以此时的320可以看做是最小视口宽度
+    
+    在横竖屏切换时，safari浏览器不会重新载入页面，而是重新缩放页面，`maximum-scale=1` 可以让页面保持固定比例来避免缩放。
+    
+    [各种口尺寸的综合列表，但是我在墙外][3]
+
+----------
+其他的meta标签
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+普通移动网页被添加到主屏幕后，拥有一些类native的功能：隐藏ios的上下状态栏，实现全屏，禁止弹性拖拽，全屏，修改顶部颜色等。
+
+```
+//去除Android平台中对邮箱地址的识别
+<meta content="email=no" name="format-detection" />
+```
+    
+## 2. 根据设备屏幕的宽高，合理使用css媒体查询规则
+## 3. dom的touch事件，移动 API orientation 和 geolocation。
+
+对手势的处理，zepto中有几个很有用的事件，swipe，swipeLeft，right，up，down，一类的，还有tap，我们可以看下zepto的源码：[github链接][4]，写一个swipe的基类
+
+### 下拉刷新
+
+思路，比如我们检测touchmove的位置快到达页面底部的时候，阻止touchmove，做容器或者页面translate移动，再在下部埋一个loading，touchend之后再做缓动恢复
+
+### swiper插件
+
+## 4. 优化图片：根据用户的屏幕尺寸和分辨率加载合适的图片(注意：你可以获知width, height, pixel ratio)。甚至不使用图片，利用css属性gradients和shadows。
+## 5. 使用带有前缀的css属性时注意兼容性，
+	> 请查看 list of Gecko-specific properties 以及 WebKit-specific properties 这两个针对 Gecko 和 Webkit 浏览器的特殊前缀列表，以及这个由 Peter Beverloo 整理的 table of vendor-specific properties.
+
+	> 使用诸如 CSS Lint 这样的工具可以帮助你查找这些问题， 诸如 SASS 和 LESS 之类的预处理器可以帮助你处理这样的跨浏览器样式。
+	
+## 6. （尽量避免使用这种方法）根据User Agent区分桌面端，平板电脑端和手机端 
+	去找到更合适的方法而不是通过User Agent来判断，因为
+
+	* 用户代理字串缺乏统一性
+	* 一些浏览器在说谎：例如Chrome中既会包含Chrome又会包含Safari。所以为了检测Safari浏览器，你不得不检测其中是否有Safari字符串同时没有Chrome字符串，Chromium也经常汇报它自己是Chrome浏览器，海猴有时也汇报它自己是火狐浏览器。
+
+	* 不要对浏览器名使用简单的正则表达式
+
+	基于此，渲染引擎是更好的选择。5个主流的渲染引擎：Trident，Gecko，Presto，Blink和WebKit
+	
+    浏览器 | 规则 | 示例
+    ---|---
+   Mozilla (Gecko, Firefox) | 注释中的 Mobile或Tablet标记 | Mozilla/5.0  (Android; Mobile; rv:13.0) Gecko/13.0 Firefox/13.0
+    WebKit-based (Android, Safari)	| 注释外的Mobile Safari标记 |	Mozilla/5.0 (Linux; U; Android 4.0.3; de-ch; HTC Sensation Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30
+    Blink-based (Chromium, Google Chrome, Opera 15+) |	注释外的Mobile Safari标记 |	Mozilla/5.0 (Linux; Android 4.4.2); Nexus 5 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Mobile Safari/537.36 OPR/20.0.1396.72047
+    Presto-based (Opera 12-) | 注释中的Opera Mobi/xyz标记(Opera 12-) | Opera/9.80 (Android 2.3.3; Linux; Opera Mobi/ADR-1111101157; U; es-ES) Presto/2.9.201 Version/11.50
+    Internet Explorer |	注释中的IEMobile/xyz标记 |	Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0)
+    
+    建议检测移动设备的时候，在用户代理字符串中寻找“Mobi”字符串。
+    
+    Reference: [user_agent mozilla][5]
+
+## 7. 在多个浏览器中检测
+* 使用 [iOS simulator][6] 在IPhone上测试移动版Safari。
+* 使用 [Android SDK][7] 测试Opera和Firefox。详细方法请点击 running Firefox for Android using the Android emulator 查看。
+
+## PPI
+[Reference][8]
+
+Pixel Per Inch，屏幕的像素密度，衡量单位物理面积内拥有像素值的情况。PPI值越高越好，同一实际尺寸的物理屏幕上能容纳更多的像素，能够展现更多的画面细节，也就意味着更平滑的画面。
+![此处输入图片的描述][9]
+
+物理像素(physical pixel)或者设备像素(device pixel)，由三个子像素(subpixel)红绿蓝组合成的像素点。
+
+默认情况下一个CSS像素应该是等于一个物理像素的宽度，浏览器的放大操作让一个CSS像素等于了两个设备像素宽度。CSS像素从来都只是一个相对值。
+
+PPI中的pixel指的应该是物理像素
+
+PPI = 屏幕边的物理像素 / 物理尺寸, 1920px/4.35inch = 441ppi
+
+PPI过高同样也会带来问题, 相同的图片素材，在越高的设备上会显示的越小。Windows默认将所有的文本和素材（实际上就是分辨率像素）都放大了1.5倍
+
+### DevicePixelRatio
+
+    window.devicePixelRatio = physical pixels / dips（device-independent pixels与物理像素无关的CSS像素）
+    
+
+以iPhone4为例，在垂直状态下手机的物理像素宽度有640px，但是因为2:1缩放的关系，此时的dip，设备报告给我们的宽度只是320px。 此时的DevicePixelRatio就为 640 / 320 = 2;
+
+### dppx
+
+dots per pixel 与 DevicePixelRatio等价，单个CSS像素占用的物理像素个数
+
+## 8. 其他
+
+###手机端支持的ES5的特性，参考：
+[xiaojue/ES-shim · GitHub][10]
+
+### CSS
+
+* button 内发光效果还有高光效果可以使用-webkit-border-image
+
+* 块级化a标签
+    请保证将每条数据都放在一个a标签中，为何这样做？因为在触控手机上，为提升用户体验，尽可能的保证用户的可点击区域较大。
+
+* 移动端的字体默认为16px
+
+* em vs rem: em是父元素fontsize的倍数表示，rem则是html的fontsize的倍数表示。
+
+* rem 布局
+
+* 一行省略：
+   
+```
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+```
+
+    
+* 多行省略(webkit浏览器)
+   
+```
+display: -webkit-box;
+overflow : hidden;
+text-overflow: ellipsis;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+    
+//用包含图片的方法：
+p {
+    position:relative;
+    line-height:1.4em;//行高是三分之一
+    /* 3 times the line-height to show 3 lines */
+    height:4.2em;//设置固定的高度
+    overflow:hidden;
+}
+p::after {
+    content:"...";//包含...
+    font-weight:bold;
+    position:absolute;
+    bottom:0;
+    right:0;
+    padding:0 20px 1px 45px;
+    background:url('http://newimg88.b0.upaiyun.com/newimg88/2014/09/ellipsis_bg.png') repeat-y;
+}
+```
+
+* `Alloyteam` 移动开发规范
+    Refrence: [Link][11]
+
+    字体设置
+    ```
+    body {
+        font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+    }
+    ```
+    base.css
+    ```
+    a, img {
+        -webkit-touch-callout: none; /* 禁止长按链接与图片弹出菜单 */
+    }
+    html, body {
+        -webkit-user-select: none;   /* 禁止选中文本（如无文本选中需求，此为必选项） */
+        user-select: none;
+    }
+    ```
+
+    移动性能
+    
+    * 要考虑Android低端机与2G网络场景下性能 注意！
+
+    * 发布前必要检查项
+
+        * 所有图片必须有进行过压缩
+        * 考虑适度的有损压缩，如转化为80%质量的jpg图片
+        * 考虑把大图切成多张小图，常见在banner图过大的场景
+        * 数据离线化，考虑将数据缓存在 localStorage
+        * 初始请求资源数 < 4 注意！
+        * 图片使用CSS Sprites 或 DataURI
+        * 外链 CSS 中避免 @import 引入
+        * 考虑内嵌小型的静态资源内容
+        * 初始请求资源gzip后总体积 < 50kb
+        * 静态资源(HTML/CSS/JS/Image)是否优化压缩？
+        * 避免打包大型类库
+        * 确保接入层已开启Gzip压缩（考虑提升Gzip级别，使用CPU开销换取加载时间） 注意！
+        * 尽量使用CSS3代替图片
+        * 初始首屏之外的静态资源（JS/CSS）延迟加载 注意！
+        * 初始首屏之外的图片资源按需加载（判断可视区域） 注意！
+        * 单页面应用(SPA)考虑延迟加载非首屏业务模块
+        * 开启Keep-Alive链路复用
+        * 运行性能优化, 达到操作足够流畅
+        * 避免 iOS 300+ms 点击延时问题 注意！
+        * 缓存 DOM 选择与计算
+        * 避免触发页面重绘的操作
+        * Debounce连续触发的事件(scroll / resize / touchmove等)，避免高频繁触发执行 注意！
+        * 尽可能使用事件代理，避免批量绑定事件
+        reference: [Link][12]
+        将事件绑定在一个代理上，通过冒泡实现。如此一来，新添加的dom节点也可以收到事件
+        why?
+        添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能,因为需要不断的与dom节点进行交互，访问dom的次数越多，引起浏览器重绘与重排的次数也就越多，就会延长整个页面的交互就绪时间。如果要用事件委托，就会将所有的操作放到js程序里面，与dom的操作就只需要交互一次，这样就能大大的减少与dom的交互次数，提高性能；
+        
+        每个函数都是一个对象，是对象就会占用内存，对象越多，内存占用率就越大，自然性能就越差了，如果用事件委托，那么我们就可以只对它的父级这一个对象进行操作，这样我们就需要一个内存空间就够了，性能就会更好。  
+        ```
+        window.onload = function(){
+        　　var oUl = document.getElementById("ul1");
+        　　oUl.onclick = function(ev){
+        　　　　var ev = ev || window.event;
+        　　　　var target = ev.target || ev.srcElement;//兼容IE
+        　　　　
+        　　　　//判断是哪个child node
+        　　　　if(target.nodeName.toLowerCase() == 'li'){
+        　 　　　　　　	alert(123);
+        　　　　　　　  alert(target.innerHTML);
+        　　　　}
+        　　　　
+        　　　　//根据id来判断
+        　　　　if(target.nodeName.toLocaleLowerCase() == 'input'){
+                    switch(target.id){
+                        case 'add' :
+                            alert('添加');
+                            break;
+                        case 'remove' :
+                            alert('删除');
+                            break;
+                        case 'move' :
+                            alert('移动');
+                            break;
+                        case 'select' :
+                            alert('选择');
+                            break;
+                    }
+                }
+        　　}
+        }
+        ```
+        
+        
+        * 使用CSS3动画代替JS动画
+        * 避免在低端机上使用大量CSS3渐变阴影效果，可考虑降级效果来提升流畅度
+        * HTML结构层级保持足够简单
+        * 尽能少的使用CSS高级选择器与通配选择器
+        * Keep it simple
+    * 在线性能检测评定工具使用指南
+        * 访问 Google PageSpeed 在线评定网站
+        * 在地址栏输入目标URL地址，点击分析按钮开始检测
+        * 按 PageSpeed 分析出的建议进行优化，优先解决红色类别的问题
+    * 推荐阅读
+        * 移动WEB性能
+        * 优化WEB缓存
+        Reference: [Link][13]
+        当PageSpeed Insights检测到您的服务器响应不包含明确的缓存标头或某些资源被指定只缓存一小段时间时，就会触发此规则。可缓存的资源包括JS和CSS文件、图像文件及其他二进制对象文件（媒体文件和PDF文件等）。通常情况下，HTML不是静态资源，默认情况下不应被视为可缓存资源。您应考虑哪些缓存政策适用于您网站的HTML。
+        
+        * 为您的服务器启用浏览器缓存。静态资源应该至少有一周的缓存有效期。将Expires设为将来日期，至少为一周，最多为一年;如果您知道资源将具体在何时发生变化，则可以设置较短的过期日期。然而，如果您认为资源“可能将要发生变化”，但又不知道具体时间，则应设置较长的过期日期，并使用网址指纹
+            * Expires和Cache-Control: max-age标头;除非过期日期到期或达到时间最大值，亦或是用户清除了缓存，浏览器发送GET请求
+            * Last-Modifed和ETag标头: 用于指定浏览器应如何确定用于缓存的文件是否相同。Last-Modified标头中指定的是日期，而在ETag标头中指定的则可以是唯一标识资源的任意值（通常为文件版本或内容哈希值）。Last-Modified是功能“较弱”的缓存标头，因为浏览器会使用试探法来确定是否需要从缓存中抓取内容。借助这些标头，浏览器可以通过在用户明确重新加载页面时发出条件式GET请求，有效地更新其已缓存资源。除非您在服务器端更改资源，否则条件式GET请求不会返回完整的响应，因此相较于完整GET请求，此类请求的延迟较小。
+            
+            
+            我应使用哪个缓存标头？
+
+                对于所有可缓存资源，指定一个Expires或Cache-Control max-age以及一个Last-Modified或ETag至关重要。您没必要同时指定Expires和Cache-Control: max-age；或同时指定Last-Modified和ETag。
+                
+            使用网址指纹
+            
+            对文件名使用网址指纹。指纹识别的常用方法是使用对文件内容的哈希值进行编码的128位十六进制数。当资源发生变化时，其指纹就会发生变化，对应的网址也会随之更改。网址一经更改，系统就会强制浏览器重新抓取资源。通过指纹，我们甚至可以为变化更为频繁的资源设置将来的过期日期。
+            
+        * 最小化RTT次数
+        
+            the above the fold (ATF) content
+            
+            确保用户在第一秒能看到页面，参与到页面互动。其他部分可以慢慢加载。3G是最普遍的用户网络，网速为600ms，DNS查找（hostname & IP address）, TCP 握手，发送http请求，之后，只留给我们400ms；1. server要在200ms内响应；2. 尽量减少 redirect请求，因为会再进行一遍循环；3. TCP会预估连接的容量，所以新的TCP连接无法完全使用服务器和客户端的带宽，新的TCP连接里first round trip TCP对多只能发送10个packets，所以第一次请求尽量小，14KB，等客户端响应后，再传输更多数据；4.加载时遇到CSS和JS文件，会block加载，浏览器跑去下载文件，所以JS和样式渲染可以放在ATF呈现之后;5. 预留200ms给浏览器渲染
+        * 最小化请求负载
+            
+        * 优化浏览器渲染
+            * 结构化HTML，以便首先加载关键的首屏内容
+                您必须将CSS拆分为两个部分：负责调整内容ATF部分的格式的内嵌部分，以及可暂缓呈现的部分。如果您的HTML先加载第三方小部件，再加载主要内容，请将该加载顺序更改为先加载主要内容; 如果您的网站采用的是两列布局（即导航边栏加文章），而HTML先加载边栏，再加载文章，请考虑首先加载文章
+            * 减少资源所用的数据量
+            如果经过重新设计的网站可以在多个设备上正常运行，并能首先加载关键内容，请使用以下技术来减少呈现网页所需的数据量：
+缩减资源的大小：通过移除不必要的空格和评论来缩减HTML、CSS和JavaScript的大小。通过使用可重命名资源中变量名称的工具，实现进一步的优化。
+尽可能考虑使用CSS，而非图片。
+启用压缩功能
+
+### 去除iOS和Android中的输入URL的控件条
+
+```
+setTimeout(scrollTo,0,0,0);
+```
+请注意，这句代码必须放在window.onload里才能够正常的工作，而且你的当前文档的内容高度必须是高于窗口的高度时，这句代码才能有效的执行。
+
+### 禁止用户旋转设备
+放弃吧，骚年
+
+### iOS 特性
+
+#### 检测用户是通过主屏启动你的webapp
+navigator.standalone为true
+
+#### 关闭iOS中键盘自动大写
+
+webkit为input元素提供了autocapitalize属性，通过指定autocapitalize="off"来关闭键盘默认首字母大写。
+
+#### iOS中如何禁止用户保存图片＼复制图片，彻底禁止用户在新窗口打开页面
+img, a标签指定-webkit-touch-callout为none
+
+#### 禁止用户选中文字
+-webkit-user-select: none
+
+#### iOS中如何获取滚动条的值
+document.scrollTop和document.scrollLeft的值在iOS未定义，因为在iOS中没有滚动条的概念，Android正常，
+
+iOS通过window.scrollY和window.scrollX获得
+
+### Android问题
+
+#### Android 2.0以下平台中圆角的问题
+
+1＼-webkit这个前缀必须要加上（在iOS中，你可以不加，但android中一定要加）；
+2＼如果对针对边框做样式定义，比如border:1px solid #000;那么-webkit-border-radius这属性必须要出现在border属性后。
+3＼假如我们有这样的视觉元素，左上角和右上角是圆角时，我们必须要先定义全局的(4个角的圆角值)-webkit-border-radius:5px;然后再依次的覆盖左下角和右下角，-webkit-border-bottom-left-radius:0;-webkit-border-bottom-right-border:0;否则在android 2.0以下的平台中将全部显示直角，还有记住！-webkit这个前缀一定要加上！
+
+
+### datepicker
+
+input[type='date']的placeholder支持有问题。很多情况下不显示placeholder文字。此时为了保持统一性，可以将type设为text，当触摸或者聚焦的时候，利用JS触发datepicker功能
+
+    <input placeholder="date" type="text" onfocus="(this.type='date')">
+
+### 快速回弹滚动
+
+- 早期手机不支持非body元素的滚动，所以一般借助iScroll;
+- Android3.0 / iOS 解决了，但滚动条不可见，iOS只能通过2个手指滚动
+- Android4.0 解决了滚动条不可见，增加快速回弹滚动效果，随后该特性被移除
+- iOS 5.0 解决了滚动条不可见，增加快速回弹滚动效果
+
+在iOS上如果你想让一个元素拥有Native的滚动效果，可以使用
+
+    .xxx{ overflow: auto; -webkit-overflow-scrolling: touch; }
+    
+### 移动端取消touch高亮效果
+
+a标签在触发点击时或者，所有设置了伪类:activ的元素， 默认都会在激活状态时，显示高亮框，去掉高亮的方法：
+
+    img{ -webkit-touch-callout: none; }
+    
+### 移动端清除input内阴影
+
+在iOS上，输入框默认有内阴影，但无法使用box-shadow来清除，关闭阴影的办法:
+
+    inut, textarea{ 
+        border: 0; /*方法1*/
+        -webkit-appearance: none; /*方法2*/
+    }
+    
+### 注意事项
+
+1. 很多属性极限突破可以使用缩放，倾斜这种手段来hack，比如最小字体，比如各种自己画的伪类图标。
+2. 能css画的不要用图。
+3. 大小需要自适应的图标做成字体的不要画。
+4. 能flex布局的不要用浮动，不要用绝对定位（不利于页面布局的扩展）
+
+### 模块化移动端的常见组件
+
+1. touch对应的swipe事件。
+2. 各种滑动翻页效果。
+3. 简单的小游戏框架。
+4. 视频和音频的包装。
+5. 各种lazyload。
+6. 各种keyframes效果收集。
+7. 拉拽刷新。
+
+
+### 移动端的性能优化和统计
+
+时间点，首屏，doc ready，window ready，css ready
+
+移动端不是资源越合成一个越好，分散成不同的几个资源下载，总时间比较快，比如活动页面，h5小游戏页都是这样。可以统一把资源图拆开加载，然后增加loading即可。
+
+作者：小爝
+链接：https://www.zhihu.com/question/20269059/answer/60767669
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+## 适配应关注哪些要素
+[Reference][14]
+字体、高宽间距、图像（图标、图片）
+
+图像相对要复杂一些，针对流量、清晰度等问题网上也有比较成熟的解决方案，比如：矢量化、字体化、image-set 等等。
+
+利用 css 将图像限定在元素内（ img 图片使用 [max-]width: 100% ，背景图像使用 background-size ），布局只针对元素进行。
+
+### 方案1 固定高度，宽度自适应
+以较小宽度（如 320px）的视觉稿作为参照进行布局。垂直方向的高度和间距使用定值，水平方向混合使用定值和百分比或者利用弹性布局，最终达到“当手机屏幕变化时，横向拉伸或者填充空白的效果”。图像元素根据容器情况，使用定值或者 background-size 缩放。
+
+### 方案2 固定宽度，viewport 缩放
+视觉稿、页面宽度、viewport width 使用统一宽度，利用浏览器自身缩放完成适配。页面样式（包括图像元素）完全按照视觉稿的尺寸，使用定值单位 （px、em）即可完成
+
+### 方案3 利用 rem 布局
+依照某特定宽度设定 rem 值（即 html 的 font-size），页面任何需要弹性适配的元素，尺寸均换算为 rem 进行布局；当页面渲染时，根据页面有效宽度进行计算，调整 rem 的大小，动态缩放以达到适配的效果。利用该方案，还可以根据 devicePixelRatio 设定 initial-scale 来放大 viewport，使页面按照物理像素渲染，提升清晰度。
+
+> 注意，较小的背景图（比如一些 icon）的 background-size 不要使用具体 rem 数值，裁剪后会出现边缘丢失。应使用与元素等尺寸切图，设定 background-size: contain|cover 来缩放。
+
+
+  [1]: http://www.w3cplus.com/responsive
+  [2]: https://developer.mozilla.org/zh-CN/docs/Mobile/Viewport_meta_tag
+  [3]: http://i-skool.co.uk/mobile-development/web-design-for-mobiles-and-tablets-viewport-sizes/
+  [4]: https://github.com/madrobby/zepto/blob/master/src/touch.js
+  [5]: https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Browser_detection_using_the_user_agent
+  [6]: https://developer.apple.com/devcenter/ios/index.action
+  [7]: https://developer.android.com/sdk/index.html
+  [8]: http://www.infoq.com/cn/articles/development-of-the-mobile-web-deep-concept
+  [9]: http://cdn1.infoqstatic.com/statics_s2_20171024-0600/resource/articles/development-of-the-mobile-web-deep-concept/zh/resources/original.jpg
+  [10]: https://github.com/xiaojue/ES-shim
+  [11]: http://alloyteam.github.io/Spirit/modules/Standard/
+  [12]: http://www.cnblogs.com/liugang-vip/p/5616484.html
+  [13]: https://developers.google.com/speed/docs/insights/LeverageBrowserCachingdules/Standard/
+  [14]: https://www.w3ctech.com/topic/979rageBrowserCachingdules/Standard/

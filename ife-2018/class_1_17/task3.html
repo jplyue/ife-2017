@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		table{ border-spacing: 0; border-collapse: collapse; }
+		table td{ padding: 9px; border: 1px solid #ddd; }
+	</style>
+</head>
+<body>
+	<div id="table"></div>
+
+	<div id="date"></div>
+	<script>
+function game3(){
+	var result = [];
+	for(var i=1; i<=100; i++){
+		if(i%3==0 || String(i).indexOf('3') > -1){
+			result.push('PA')
+		}else{
+			result.push(i);
+		}
+	}
+	console.log(result.join(','));
+}	
+
+function gameMultiply(){
+	var html = '<table>';
+	for(var m=1; m<10; m++){
+		html += '<tr>';
+		for(var n=1; n<=m; n++){
+			html += '<td> '+n+' x '+m+' = '+n*m+'</td>';
+		}
+		html += '</tr>';
+	}
+	html += '</table>';
+	document.getElementById('table').innerHTML = html;
+}
+
+function gameDate(){
+	var d  = new Date();
+	var hour = d.getHours();
+	if(hour>4 && hour < 12){
+		document.getElementById('date').innerHTML = '早上好';
+	}else{
+		document.getElementById('date').innerHTML = '晚上好';
+	}
+}
+	
+	window.onload = function(){
+		game3();
+		gameMultiply();
+		gameDate();
+	}
+	</script>
+</body>
+</html>
