@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>20&21</title>
+</head>
+<body>
+	<input id="name" type="text">    
+	<button id="submit-btn">Submit</button>
+
+	<script>
+		window.onload = function(){
+
+			var button = document.querySelector('#submit-btn');
+			var text = document.querySelector('#name');
+
+			button.addEventListener('click', function(){
+				console.log(text.value);
+			});
+
+			text.addEventListener('keydown', function(e){
+				if(e.keyCode == 13){
+					button.click();
+				}
+
+				if(e.keyCode == 27 || e.keyCode == 96){
+					text.value = '';
+				}
+			});
+
+		}
+	</script>
+</body>
+</html>

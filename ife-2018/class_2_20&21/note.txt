@@ -1,0 +1,142 @@
+## JavaScript HTML DOM 事件
+
+事件并不是JavaScript的核心部分——它们是在浏览器Web APIs中定义的。
+
+### 1. 添加方法
+```
+//直接写
+<h1 onclick="this.innerHTML='谢谢!'">请点击该文本</h1>
+
+//调用function
+<h1 onclick="changetext(this)">请点击该文本</h1>
+
+//JS
+<script>
+document.getElementById("myBtn").onclick=function(){displayDate()};
+
+//将一个有名字的函数赋值给事件处理参数
+var btn = document.querySelector('button');
+
+function bgChange() {
+  var rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+  document.body.style.backgroundColor = rndCol;
+}
+
+btn.onclick = bgChange;
+
+//监听
+//removeEventListener()
+btn.addEventListener('click', bgChange);
+
+//////第二行会覆盖第一行
+myElement.onclick = functionA;
+myElement.onclick = functionB;
+/////这样就是并行
+myElement.addEventListener('click', functionA);
+myElement.addEventListener('click', functionB);
+
+
+</script>
+```
+
+### 2. 事件
+
+事件处理器： 事件触发时要运行的代码
+事件监听器：注册一个事件处理器
+（监听器是留意事件是否发生，处理器是对事件发生做出回应）
+
+事件列表
+
+* btn.onfocus
+* btn.onblur 
+* btn.ondblclick
+* window.onkeypress
+* window.onkeydown
+* window.onkeyup
+* btn.onmouseover 
+* btn.onmouseout
+* onplay (仅video)
+
+#### event对象
+event.target （ e / evt / event）
+
+一些更高级的处理程序会添加一些专业属性，这些属性包含它们需要运行的额外数据。例如，媒体记录器API有一个dataavailable事件，它会在录制一些音频或视频时触发，并且可以用来做一些事情(例如保存它，或者回放)。对应的ondataavailable处理程序的事件对象有一个可用的数据属性
+
+### 3. 阻止默认事件
+
+```
+form.onsubmit = function(e) {
+  if (fname.value === '' || lname.value === '') {
+    e.preventDefault();
+    para.textContent = 'You need to fill in both names!';
+  }
+}
+```
+
+### 事件冒泡和捕捉
+
+冒泡的顺序是从子到父
+捕捉的顺序是从父到子
+
+> 默认情况下，所有事件处理程序都是在冒泡阶段注册的，这在大多数情况下更有意义。如果您真的想在捕获阶段注册一个事件，那么您可以通过使用addEventListener()注册您的处理程序，并将可选的第三个属性设置为true。
+
+解决： e.stopPropagation();
+
+#### 事件委托
+
+可以利用冒泡，将事件设置在父节点上(ul), 冒泡到子节点li上
+
+```
+// Get the element, add a click listener...
+document.getElementById("parent-list").addEventListener("click", function(e) {
+	// e.target is the clicked element!
+	// If it was a list item
+	if(e.target && e.target.nodeName == "LI") {
+		// List item found!  Output the ID!
+		console.log("List item ", e.target.id.replace("post-", ""), " was clicked!");
+	}
+});
+
+// Get the parent DIV, add click listener...
+document.getElementById("myDiv").addEventListener("click",function(e) {
+	// e.target was the clicked element
+  if (e.target && e.target.matches("a.classA")) {
+    console.log("Anchor element clicked!");
+	}
+});
+
+```
+
+### HTML DOM Text 对象
+
+#### Text 对象属性
+accessKey	设置或返回访问文本域的快捷键。
+alt	设置或返回当浏览器不支持文本域时供显示的替代文本。
+defaultValue	设置或返回文本域的默认值。
+disabled	设置或返回文本域是否应被禁用。
+form	返回一个对包含文本域的表单对象的引用。
+id	设置或返回文本域的 id。
+maxLength	设置或返回文本域中的最大字符数。
+name	设置或返回文本域的名称。
+readOnly	设置或返回文本域是否应是只读的。
+size	设置或返回文本域的尺寸。
+tabIndex	设置或返回文本域的 tab 键控制次序。
+type	返回文本域的表单元素类型。
+value	设置或返回文本域的 value 属性的值。
+
+#### 标准属性
+
+属性	描述
+className	设置或返回元素的 class 属性。
+dir	设置或返回文本的方向。
+lang	设置或返回元素的语言代码。
+title	设置或返回元素的 title 属性。
+
+#### Text 对象方法
+方法	描述
+blur()	从文本域上移开焦点。
+focus()	在文本域上设置焦点。
+select()	选取文本域中的内容。
+
+### HTML DOM Button 对象
+
